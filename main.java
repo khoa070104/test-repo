@@ -1,24 +1,53 @@
-import java.util.Scanner;
+class Node {
+    int data;
+    Node next;
 
-public class main {
-    // Hàm kiểm tra số nguyên tố
-    public static boolean isPrime(int n) {
-        if (n < 2) return false; // Số nhỏ hơn 2 không phải nguyên tố
-        for (int i = 2; i <= Math.sqrt(n); i++) {
-            if (n % i == 0) return false; // Nếu chia hết thì không nguyên tố
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class SinglyLinkedList {
+    Node head;
+
+    // Hàm thêm node vào cuối danh sách
+    public void addLast(int data) {
+        Node newNode = new Node(data);
+        if (head == null) { // nếu danh sách rỗng
+            head = newNode;
+            return;
         }
-        return true;
+        Node temp = head;
+        while (temp.next != null) { // duyệt đến node cuối
+            temp = temp.next;
+        }
+        temp.next = newNode; // gắn node mới vào cuối
     }
 
+    // Hàm in danh sách
+    public void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+public class main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        SinglyLinkedList list = new SinglyLinkedList();
 
-        System.out.print("Nhập một số: ");
-        int number = sc.nextInt();
+        // Thêm các phần tử vào cuối danh sách
+        int[] arr = {5, 7, 9, 1, 2, 0, 8};
+        for (int num : arr) {
+            list.addLast(num);
+        }
 
-        boolean result = isPrime(number);
-        System.out.println("Kết quả: " + result);
-
-        sc.close();
+        // In danh sách
+        System.out.print("Linked List: ");
+        list.printList();
     }
 }
